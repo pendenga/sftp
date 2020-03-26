@@ -1,0 +1,43 @@
+{
+  "name": "pendenga/sftp",
+  "description": "Sftp library for doing key-signed posts",
+  "type": "library",
+  "minimum-stability": "beta",
+  "license": "none",
+  "authors": [
+    {
+      "name": "Grant Anderson",
+      "email": "pendenga@gmail.dom"
+    }
+  ],
+  "config": {
+    "platform": {
+      "php": "7.3.11",
+      "ext-json": "1.5.0",
+      "ext-zip": "1.15.2"
+    }
+  },
+  "require": {
+    "phpseclib/phpseclib": "^2.0",
+    "pendenga/file": "^0.1.0"
+  },
+  "require-dev": {
+    "pendenga/log": "^0.1.0",
+    "phpunit/phpunit": "^9.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Pendenga\\Sftp\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Pendenga\\Sftp\\Test\\": "test/"
+    }
+  },
+  "scripts": {
+    "test": "phpunit",
+    "test-qc": "phpunit --coverage-text",
+    "test-coverage": "phpunit --coverage-html=build/coverage"
+  }
+}
