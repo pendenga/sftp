@@ -18,6 +18,7 @@ try {
     // get these values from ini
     $sftp_remote_path = Ini::get('SFTP_REMOTE_PATH');
     $sftp_username = Ini::get('SFTP_USERNAME');
+    $rsa_password = Ini::get('RSA_PASSWORD');
     $rsa_key_base64 = Ini::get('RSA_KEY_BASE64');
     $domo_dataset_id = Ini::get('DOMO_DATASET_ID');
     $remote_file = $domo_dataset_id . '.csv';
@@ -25,6 +26,7 @@ try {
     // do it manually
     $sftp = new SFTP($sftp_remote_path);
     $rsa = new RSA();
+    $rsa->setPassword($rsa_password);
     $rsa->loadKey(base64_decode($rsa_key_base64));
     $sftp->login($sftp_username, $rsa);
     $sftp->put($remote_file, $local_file, SFTP::SOURCE_LOCAL_FILE);

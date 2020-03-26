@@ -26,14 +26,23 @@ $ composer require pendenga/domo
 
 ## Usage
 
-After creating a Domo data set, you'll get a `dataset_id` which is used as the remote filename. That ID is a dependency
-as you initialize the object. 
+After creating a Domo data set, you'll get a `dataset_id` which is used for the remote filename. That's the only 
+loose variable. All the reset of the connection information can be abstracted in a SftpLoaderInterface, in this case
+the demo class IniLoader.
  
 ```php
-// using example iniLoader to simplify
-$ini = new IniLoader();
-$domo = new DomoPush($ini, new EchoLogger());
-$domo->push($local_file, $domo->getRemoteFilename($ini->domoDatasetId()));
+// using example iniLoader to simplify (1 variable to look up)
+$domo = new DomoPush(new IniLoader());
+$domo->push($local_file, $domo->getRemoteFilename($domo_dataset_id));
+
+
+// manual sftp operation (5 variables to look up)
+$sftp = new SFTP($sftp_remote_path);
+$rsa = new RSA();
+$rsa->setPassword($rsa_password);
+$rsa->loadKey(base64_decode($rsa_key_base64));
+$sftp->login($sftp_username, $rsa);
+$sftp->put($remote_file, $local_file, SFTP::SOURCE_LOCAL_FILE);
 ``` 
   
 [link-composer]: https://getcomposer.org/
